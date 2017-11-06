@@ -212,9 +212,7 @@ function s2e(s::AbstractString)
 end
 
 
-if VERSION >= v"0.5.0-"
-	# `for` loop search regex string (julia v0.5)
-	function formatch(s::AbstractString)
+function formatch(s::AbstractString)
 		exreg = quote
 			rg"(?<pre>.*?)"
 	        rg"(?<g0>:[#_].+?)" = rg"(?<range>.+?)"
@@ -238,34 +236,6 @@ if VERSION >= v"0.5.0-"
 			return nothing, nothing, nothing, nothing, nothing
 		end
 	end
-else
-	# `for` loop search regex string (julia v0.3.3 + 0.4 latest)
-	function formatch(s::AbstractString)
-		exreg = quote
-		    rg"(?<pre>.*?)"
-		    rg"(?<g0>:[#_].+?)" = rg"(?<range>.+?)"
-		    rg"(?<iter>.+)" = start(rg"\g{g0}")
-		    gotoifnot( !(done(rg"\g{g0}", rg"\g{iter}" )) , rg"(?<lab1>\d+)" )
-		    rg":\((?<lab2>\d+): \)"
-		    rg"(?<g1>.+?)" = next(rg"\g{g0}", rg"\g{iter}")
-		    rg"(?<idx>.+?)" = rg":(?:getfield|tupleref)"(rg"\g{g1}", 1)
-		    rg"\g{iter}"    = rg":(?:getfield|tupleref)"(rg"\g{g1}", 2)
-		    rg"(?<in>.*)"
-		    rg":\((?<lab3>\d+): \)"
-		    gotoifnot( !(!(done(rg"\g{g0}", rg"\g{iter}"))) , rg"\g{lab2}" )
-		    rg":\(\g{lab1}: \)"
-		    rg"(?<post>.*)"
-		end
-		rexp = Regex(e2s(streamline(exreg), true))
-
-		mm = match(rexp, s)
-		if mm != nothing && length(mm.captures) >= 11
-	        return mm.captures[[1,3,8,9,11]] # pre, rg, idx, inside, post
-		else
-			return nothing, nothing, nothing, nothing, nothing
-		end
-	end
-end
 
 
 function _transform(s::AbstractString)
