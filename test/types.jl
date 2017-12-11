@@ -5,7 +5,7 @@
 #################################################################
 
 module Sandbox
-    type Abcd
+    mutable struct Abcd
         a::Float64
         b::Vector{Float64}
     end
