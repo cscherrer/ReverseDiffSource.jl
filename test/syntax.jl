@@ -64,7 +64,7 @@ res = m.rdiff( :( 2 ^ foo5(x) ) , x=Int)
 ######### @typeequiv ############
 
 module Sandbox2
-    type Bar
+    mutable struct Bar
         x::Float64
         y::Float64
     end

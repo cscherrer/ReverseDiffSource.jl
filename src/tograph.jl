@@ -5,7 +5,7 @@
 #########################################################################
 
 ##########  Parameterized type to ease AST exploration  ############
-type ExH{H}
+mutable struct ExH{H}
     head::Symbol
     args::Vector
     typ::Any
@@ -13,29 +13,29 @@ end
 toExH(ex::Expr) = ExH{ex.head}(ex.head, ex.args, ex.typ)
 toExpr(ex::ExH) = Expr(ex.head, ex.args...)
 
-typealias ExEqual    ExH{:(=)}
-typealias ExDColon   ExH{:(::)}
-typealias ExColon    ExH{:(:)}
-typealias ExPEqual   ExH{:(+=)}
-typealias ExMEqual   ExH{:(-=)}
-typealias ExTEqual   ExH{:(*=)}
-typealias ExTrans    ExH{Symbol("'")}
-typealias ExCall     ExH{:call}
-typealias ExBlock    ExH{:block}
-typealias ExLine     ExH{:line}
-typealias ExVcat     ExH{:vcat}
-typealias ExVect     ExH{:vect}
-typealias ExCell1d   ExH{:cell1d}
-typealias ExCell     ExH{:cell1d}
-typealias ExFor      ExH{:for}
-typealias ExRef      ExH{:ref}
-typealias ExIf       ExH{:if}
-typealias ExComp     ExH{:comparison}
-typealias ExDot      ExH{:.}
-typealias ExTuple    ExH{:tuple}
-typealias ExReturn   ExH{:return}
-typealias ExBody     ExH{:body}
-typealias ExQuote    ExH{:QuoteNode}
+const ExEqual    =    ExH{:(=)}
+const ExDColon   =   ExH{:(::)}
+const ExColon    =    ExH{:(:)}
+const ExPEqual   =   ExH{:(+=)}
+const ExMEqual   =   ExH{:(-=)}
+const ExTEqual   =   ExH{:(*=)}
+const ExTrans    =    ExH{Symbol("'")}
+const ExCall     =     ExH{:call}
+const ExBlock    =    ExH{:block}
+const ExLine     =     ExH{:line}
+const ExVcat     =     ExH{:vcat}
+const ExVect     =     ExH{:vect}
+const ExCell1d   =   ExH{:cell1d}
+const ExCell     =     ExH{:cell1d}
+const ExFor      =      ExH{:for}
+const ExRef      =      ExH{:ref}
+const ExIf       =       ExH{:if}
+const ExComp     =     ExH{:comparison}
+const ExDot      =      ExH{:.}
+const ExTuple    =    ExH{:tuple}
+const ExReturn   =   ExH{:return}
+const ExBody     =     ExH{:body}
+const ExQuote    =    ExH{:QuoteNode}
 
 
 #  s     : expression to convert
