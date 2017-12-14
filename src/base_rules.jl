@@ -24,7 +24,7 @@
 
 @deriv_rule ones(x)      x     0.
 
-@deriv_rule cell(x)      x     0.
+# @deriv_rule cell(x)      x     0.
 
 @deriv_rule sign(x)      x     0.
 

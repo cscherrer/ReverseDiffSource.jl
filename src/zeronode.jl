@@ -20,7 +20,7 @@ end
 ## 0. where derivation makes no sense
 zeronode(t::Type{Symbol}) = tograph( :(0.) )
 zeronode(t::Type{DataType}) = tograph( :(0.) )
-zeronode(t::Type{TypeConstructor}) = tograph( :(0.) )
+# zeronode(t::Type{TypeConstructor}) = tograph( :(0.) )
 zeronode(t::Type{Type}) = tograph( :(0.) )
 zeronode(t::Type{Function}) = tograph( :(0.) )
 zeronode(t::Type{Module}) = tograph( :(0.) )

@@ -274,7 +274,7 @@ function tograph(s, evalmod=Main, svars=Any[])
     for en in filter(n -> isa(n, NExt) & !in(n.main, svars) , keys(g.exti))
         if isdefined(evalmod, en.main)  # is it defined
             tv = evalmod.eval(en.main)
-            isa(tv, TypeConstructor) && error("[tograph] TypeConstructors not supported: $ex $(tv), use DataTypes")
+            #isa(tv, TypeConstructor) && error("[tograph] TypeConstructors not supported: $ex $(tv), use DataTypes")
             if isa(tv, DataType) || isa(tv, Module) || isa(tv, Function)
                 delete!(g.exti, en)
                 nc = addnode!(g, NConst( tv ))
